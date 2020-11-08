@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"math"
 	"math/big"
 )
 
@@ -98,6 +99,11 @@ func (d Decimal) Pow(exp int) Decimal {
 // Sqrt returns the deciamal's square root
 func (d Decimal) Sqrt() Decimal {
 	return Decimal{d.cpy().Sqrt(d.cpy())}
+}
+
+// Log returns the logarithm
+func (d Decimal) Log() Decimal {
+	return NewDecimal(math.Log(d.Float()))
 }
 
 // EQ returns true if this Decimal exactly equals the provided decimal.
