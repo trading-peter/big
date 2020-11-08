@@ -5,8 +5,9 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"math"
 	"math/big"
+
+	bigfloat "github.com/ALTree/floatutils"
 )
 
 var (
@@ -96,14 +97,26 @@ func (d Decimal) Pow(exp int) Decimal {
 	return x
 }
 
-// Sqrt returns the deciamal's square root
+// Sqrt returns the decimal's square root
 func (d Decimal) Sqrt() Decimal {
 	return Decimal{d.cpy().Sqrt(d.cpy())}
 }
 
 // Log returns the logarithm
 func (d Decimal) Log() Decimal {
-	return NewDecimal(math.Log(d.Float()))
+	return Decimal{fl: bigfloat.Log(d.cpy())}
+}
+
+// Exp returns the Exp value of the decimal
+func (d Decimal) Exp() Decimal {
+	return Decimal{fl: bigfloat.Exp(d.cpy())}
+}
+
+// Floor returns the floor value.
+func (d Decimal) Floor() Decimal {
+	i, _ := d.cpy().Int(nil)
+	fl := new(big.Float)
+	return Decimal{fl: fl.SetInt(i)}
 }
 
 // EQ returns true if this Decimal exactly equals the provided decimal.

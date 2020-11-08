@@ -134,6 +134,16 @@ func TestDecimal(t *testing.T) {
 		assert.EqualValues(t, 4.1588830833596715, f.Log().Float())
 	})
 
+	t.Run("Exp", func(t *testing.T) {
+		f := NewDecimal(1.34)
+		assert.EqualValues(t, 3.819043505366336, f.Exp().Float())
+	})
+
+	t.Run("Floor", func(t *testing.T) {
+		f := NewDecimal(4.98366)
+		assert.EqualValues(t, 4, f.Floor().Float())
+	})
+
 	t.Run("Sqrt", func(t *testing.T) {
 		f := NewDecimal(64)
 		assert.EqualValues(t, 8, f.Sqrt().Float())
